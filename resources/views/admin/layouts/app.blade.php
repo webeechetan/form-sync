@@ -147,7 +147,7 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://webeesocial.com" target="_blank" class="footer-link fw-bolder">Webeesocial</a>
+                  <a href="" target="_blank" class="footer-link fw-bolder">Form-Sync</a>
                 </div>
               </div>
             </footer>

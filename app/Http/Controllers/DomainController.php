@@ -13,6 +13,8 @@ class DomainController extends Controller
     public function index()
     {
         $domains = Domain::where('user_id',auth()->id())->get();
+
+        // dd($domains);
         return view('admin.domains.index',compact('domains'));
     }
 
@@ -54,7 +56,7 @@ class DomainController extends Controller
      */
     public function edit(Domain $domain)
     {
-        //
+        dd('edit');
     }
 
     /**
@@ -62,7 +64,16 @@ class DomainController extends Controller
      */
     public function update(Request $request, Domain $domain)
     {
-        //
+        $domain = Domain::find($request->id);
+        $domain->name = $request->name;
+
+        try {
+            $domain->save();
+            return response()->json(['success'=>'domain updated successfully.']);
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>$th->getMessage()]);
+        }
+
     }
 
     /**
@@ -70,6 +81,10 @@ class DomainController extends Controller
      */
     public function destroy(Domain $domain)
     {
-        //
+        if($domain->delete()){
+            return redirect()->route('domains.index');           
+        }else{
+            return redirect()->back();
+        }
     }
 }

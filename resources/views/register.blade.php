@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>{{ env('APP_NAME') }} - Login</title>
+    <title>{{ env('APP_NAME') }} - Registration</title>
 
     <meta name="description" content="" />
 
@@ -82,10 +82,26 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to {{ env('APP_NAME') }}! </h4>
+              <h4 class="mb-2">Welcome to {{ env('APP_NAME') }}! Registration </h4>
 
-              <form id="formAuthentication" class="mb-3" action="{{ route('admin.authenticate') }}" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{ route('users.store') }}" method="POST">
                 @csrf
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      placeholder="Enter your name "
+                      autofocus
+                    />
+                      @error('name')
+                          <x-error-component :message="$message" />
+                      @enderror
+                  </div>
+
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or Username</label>
                   <input
@@ -117,15 +133,14 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Register </button>
                 </div>
               </form>
 
               <div class="text-center mt-3">
-                <p>Don't  have an account ? Register below</p>
-                <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
+                <p>Already have an account ? Click below</p>
+                <a href="{{ route('admin.login') }}" class="btn btn-primary">Login</a>
             </div>
-        
 
             </div>
           </div>

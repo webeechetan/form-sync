@@ -25,7 +25,9 @@
         $(document).ready(function(){
             $('.script-tag').click(function(){
                 $(this).select();
+                alert('Copy the selected script');
             });
         });
     </script>
 @endpush
+

@@ -51,5 +51,18 @@
         </a>
       </li>
 
+      <!-- Users -->
+      <li class="menu-item
+      @if (request()->routeIs('users.index'))
+          active
+      @endif
+      ">
+        <a href="{{route('users.index')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user"></i>
+          <div data-i18n="Layouts">Users</div>
+        </a>
+      </li>
+
+
     </ul>
   </aside>
