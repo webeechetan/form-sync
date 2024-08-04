@@ -7,9 +7,9 @@ use App\Http\Controllers\DomainController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Cors;
 
-// Route::get('/', function () {
-//     return 'hello world';
-// });
+Route::get('/', function () {
+    return view('frontend.layouts.app');
+})->name('home');
 
 Route::get('/register', function () {
     return view('register');

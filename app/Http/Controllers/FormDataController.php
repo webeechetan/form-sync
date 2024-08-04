@@ -40,10 +40,15 @@ class FormDataController extends Controller
             'host' => $request->header('host'),
         ];
 
-        $user = Domain::where('name',$sender_info['origin'])->first();
+        $domain = Domain::where('name',$sender_info['origin'])->first();
+        if(!$domain){
+            return response()->json(['message' => 'Unauthorized','status'=>'failed'],401);
+        }
 
+        $user = User::find($domain->user_id);
+        
         if(!$user){
-            return response()->json(['message' => 'Unauthorized'],401);
+            return response()->json(['message' => 'Unauthorized','status'=>'failed'],401);
         }
 
         $data = $request->all();
@@ -68,7 +73,10 @@ class FormDataController extends Controller
         $formData->form_name = $formName;
         $formData->save();
 
-        return response()->json($request->all(),200);
+        return response()->json([
+            'message' => 'Form data saved successfully',
+            'status' => 'success'
+        ],200);
     }
 
     /**
