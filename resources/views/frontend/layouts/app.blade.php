@@ -77,6 +77,10 @@
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#pricing">PRICING</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="https://webeechetan.github.io/form-sync-docs/">DOCS</a>
+                    </li>
+                    
                 </ul>
                 <span class="nav-item">
                     <a class="btn-outline-sm" href="{{route('admin.login')}}">LOG IN</a>
