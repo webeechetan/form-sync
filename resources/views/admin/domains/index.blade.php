@@ -51,7 +51,7 @@
                                             <td>
                                                 
                                             
-                                                {{-- <a class="btn btn-primary edit_domain" href="#" data-bs-toggle="modal" data-bs-target="#edit_domain_modal" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">Edit</a> --}}
+                                                <a class="btn btn-secondary view_domain" href="#" data-bs-toggle="modal" data-bs-target="#view_domain_modal" data-uuid = "{{ $domain->uuid }}" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">View</a>
                                                 <a class="btn btn-primary edit_domain" href="#" data-bs-toggle="modal" data-bs-target="#edit_domain_modal" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">Edit</a>
                                                 <form action="{{ route('domains.destroy', $domain->id) }}" method="POST" style="display: inline-block">
                                                     @csrf
@@ -71,31 +71,27 @@
     </div>
 
 
-    {{-- <div class="modal fade" id="edit_domain_modal" tabindex="-1" aria-modal="true" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel2">Domain</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="" method="POST" id="domain_modal_form">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col mb-3">
-                                <input id="domain_id" name="domain_name" class="form-control" placeholder="Type Here...">
-                            </div>
-                            <input type="hidden" id="id" name="id">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Domain</button>
-                    </div>
-                </form>
+
+    <div class="modal fade" id="view_domain_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Copy Code</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <input type="text" class="form-control script-tag" value="<script src='{{ env('APP_URL') }}/js/save-data.js'></script>" name="" id="">
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+          </div>
         </div>
-    </div> --}}
+      </div>
+      
+
+
+
 
     <div class="modal fade" id="edit_domain_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -128,6 +124,20 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+
+
+     //Here I am setting the values in the view modal
+     $(".view_domain").click(function(e){
+        e.preventDefault();
+
+        $('#view_domain_modal').modal('show');
+
+        
+    });
+
+
+
+
 
     //Here I am setting the values in the modal
     $(".edit_domain").click(function(e){

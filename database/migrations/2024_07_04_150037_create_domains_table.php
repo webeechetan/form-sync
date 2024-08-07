@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->uuid('uuid')->unique();
             $table->string('name');
             $table->timestamps();
         });

@@ -57,10 +57,10 @@
           active
       @endif
       ">
-        <a href="{{route('users.index')}}" class="menu-link">
+        {{-- <a href="{{route('users.index')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>
           <div data-i18n="Layouts">Users</div>
-        </a>
+        </a> --}}
       </li>
 
 

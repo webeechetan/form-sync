@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Domain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DomainController extends Controller
 {
@@ -38,6 +39,7 @@ class DomainController extends Controller
         $domain = new Domain();
         $domain->name = $request->name;
         $domain->user_id = auth()->id();
+        $domain->uuid = (string) Str::uuid(); // Generate and assign a UUID
         $domain->save();
 
         return redirect()->back()->with('success','Domain added successfully');
