@@ -8,6 +8,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         @php
                         $allKeys = collect($formDatas)->flatMap(function ($item) {
                         return array_keys(json_decode($item->data, true));
@@ -24,12 +25,14 @@
                 <tbody class="table-border-bottom-0">
                     @foreach ($formDatas as $formData)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             @php
                                 $data = json_decode($formData->data, true);
                             @endphp
                             @foreach ($allKeys as $key)
                                 @php
-                                $value = $data[$key] ?? '';
+
+                                    $value = $data[$key] ?? '';
                                 @endphp
                                 @if (is_string($value) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $value))
                                     <td><img src="{{ $value }}" alt="Uploaded Image" width="100"></td>
