@@ -38,7 +38,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Domain</th>
-                                        <th>Created At</th>
+                                        <th>Domain Key</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -47,16 +47,20 @@
                                         <tr>
                                             <td>{{ $domain->id }}</td>
                                             <td>{{ $domain->name }}</td>
-                                            <td>{{ $domain->created_at->format('d-m-Y') }}</td>
+                                            <td>
+                                                {{ $domain->domain_key }}
+                                            </td>
                                             <td>
                                                 
                                             
-                                                <a class="btn btn-secondary view_domain" href="#" data-bs-toggle="modal" data-bs-target="#view_domain_modal" data-uuid = "{{ $domain->uuid }}" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">View</a>
-                                                <a class="btn btn-primary edit_domain" href="#" data-bs-toggle="modal" data-bs-target="#edit_domain_modal" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">Edit</a>
+                                                <a class="btn btn-secondary btn-sm view_domain" href="#" data-bs-toggle="modal" data-bs-target="#view_domain_modal" data-domainkey = "{{ $domain->domain_key }}" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">
+                                                    <i class="bx bx-code-alt"></i> 
+                                                </a>
+                                                <a class="btn btn-primary btn-sm edit_domain" href="#" data-bs-toggle="modal" data-bs-target="#edit_domain_modal" data-id="{{ $domain->id }}" data-name="{{ $domain->name }}">Edit</a>
                                                 <form action="{{ route('domains.destroy', $domain->id) }}" method="POST" style="display: inline-block">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -80,10 +84,26 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control script-tag" value="<script src='{{ env('APP_URL') }}/js/save-data.js'></script>" name="" id="">
-            </div>
-            <div class="modal-footer">
-             
+                <p>Copy the below code and paste it in your website</p>
+                <hr>
+                <div class="code">
+                    <div rows="10" class=" script-tag" >&lt;script src='{{ env('APP_URL') }}/js/save-data.js'&gt;&lt;/script&gt;
+                        <br>
+                        &lt;script&gt;
+                        <br>
+                            FormSync('.your-form-class-name', {
+                                <br>
+                                thankYouMsg: 'my Custom MSG',
+                                <br>
+                                domainKey: '<span class="domain-key"></span>',
+                                <br>
+                            });
+                        <br>
+                        &lt;/script&gt;
+
+                    </div>
+                </div>
+
             </div>
           </div>
         </div>
@@ -121,18 +141,29 @@
 @endsection
 
 
+@push('styles')
+<style>
+    .code {
+        background-color: #7bb5f0;
+        border-radius: 5px;
+        padding: 10px;
+        color: black
+    }
+</style>
+@endpush
+
 @push('scripts')
 <script>
 $(document).ready(function() {
-
 
      //Here I am setting the values in the view modal
      $(".view_domain").click(function(e){
         e.preventDefault();
 
         $('#view_domain_modal').modal('show');
+        let domain_key = $(this).data("domainkey");
+        $('.domain-key').text(domain_key);
 
-        
     });
 
 

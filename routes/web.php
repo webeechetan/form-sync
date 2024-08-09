@@ -6,6 +6,7 @@ use App\Http\Controllers\FormDataController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Cors;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
     return view('frontend.layouts.app');
@@ -23,9 +24,7 @@ Route::get('/admin/login', [AuthController::class, 'login'])->name('admin.login'
 Route::post('/admin/login', [AuthController::class, 'authenticate'])->name('admin.authenticate');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class,'dashboard'])->name('admin.dashboard');
     
     Route::get('/get-form-data',[FormDataController::class,'index'])->name('get-form-data');
     

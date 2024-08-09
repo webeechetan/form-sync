@@ -32,6 +32,7 @@ class FormDataController extends Controller
      */
     public function store(Request $request)
     {
+
         $sender_info = [
             'ip' => $request->ip(),
             'user_agent' => $request->header('User-Agent'),
@@ -40,7 +41,8 @@ class FormDataController extends Controller
             'host' => $request->header('host'),
         ];
 
-        $domain = Domain::where('name',$sender_info['origin'])->first();
+        $domain = Domain::where('domain_key',$request->domainKey)->first();
+
         if(!$domain){
             return response()->json(['message' => 'Unauthorized','status'=>'failed'],401);
         }
@@ -53,6 +55,9 @@ class FormDataController extends Controller
 
         $data = $request->all();
 
+        // Remove the domain key from the data
+        unset($data['domainKey']);
+        
         // Identify the file input dynamically
         foreach ($request->files as $key => $file) {
             if ($request->hasFile($key)) {
@@ -71,6 +76,7 @@ class FormDataController extends Controller
         $formData->data = json_encode($data);
         $formData->sender_info = json_encode($sender_info);
         $formData->form_name = $formName;
+        $formData->domain_id = $domain->id;
         $formData->save();
 
         return response()->json([

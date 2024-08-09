@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('form_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('domain_id')->nullable();
             $table->string('form_name');
             $table->json('data');
             $table->json('sender_info')->nullable();

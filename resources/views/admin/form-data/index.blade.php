@@ -18,6 +18,7 @@
                             <th>{{ $key }}</th>
                         @endforeach
                         <th>Form Name</th>
+                        <th>Domain </th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -37,6 +38,7 @@
                                 @endif
                             @endforeach
                             <td>{{ $formData->form_name }}</td>
+                            <td>{{ $formData->domain->name }}</td>
                         </tr>
                     @endforeach
                 </tbody>
